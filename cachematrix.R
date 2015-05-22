@@ -5,6 +5,7 @@
 ## make cache of matrix and the inverse
 
 makeCacheMatrix <- function(x = matrix()) {
+    # init inv matrix to null meaning not set
     inv = NULL 
     # set is a function that sets matrix x and nulls the inverse (inv)
     # note that x and inv reside in the parent 
@@ -14,10 +15,11 @@ makeCacheMatrix <- function(x = matrix()) {
     }
     # get is a function that returns matrix x
     get <- function() { x }
-    # setinv with a parameter, solve sets the inv in the parent
+    # setinv with a parameter, sets the inv in the parent
     setinv <- function( solve ) { inv <<- solve }
-    # setinv with no parameters
+    # setinv with no parameters, returns inv
     setinv <- function() { inv }
+    # list ...
     list( set=set, get=get, setinv=setinv, getinv=getinv )
 }
 
@@ -25,7 +27,7 @@ makeCacheMatrix <- function(x = matrix()) {
 ## or solves the matrix, caches the inverse, and returns the inverse
 
 cacheSolve <- function(x, ...) {
-    ## Return a matrix that is the inverse of 'x'
+    # inv is a matrix that is the inverse of 'x'
     inv <- x$getinv()
     # if the cached inverse (inv) is not null then write a message and return inv
     if (!is.null(inv)) {
